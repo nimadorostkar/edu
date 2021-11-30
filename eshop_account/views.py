@@ -1,7 +1,3 @@
-from django.shortcuts import render
-
-# Create your views here.
-
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib import messages
@@ -19,12 +15,14 @@ from .models import UserProfile, UserAddress, History
 from django.views.generic.detail import SingleObjectMixin
 
 
+
+
+
+
 def login_user(request):
     url = request.META.get('HTTP_REFERER')  # get last url
     form = LoginForm(request.POST or None)
-    context = {
-        'form': form
-    }
+    context = {'form': form}
 
     if form.is_valid():
         username = form.cleaned_data.get('username')
@@ -38,6 +36,10 @@ def login_user(request):
         else:
             form.add_error('username', 'نام کاربری یا رمز عبور اشتباه می‌باشد!!')
     return render(request, 'account/login.html', context)
+
+
+
+
 
 
 def register(request):
@@ -62,9 +64,19 @@ def register(request):
     return render(request, 'account/register.html', context)
 
 
+
+
+
+
+
 def log_out(request):
     logout(request)
     return redirect('/')
+
+
+
+
+
 
 
 # render partial
