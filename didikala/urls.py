@@ -4,7 +4,7 @@ from django.urls import path, include
 from didikala import settings
 from django.conf.urls.static import static
 
-from didikala.views import home_page, header, footer, edu_home
+from didikala.views import home_page, header, footer, edu
 from rest_framework import permissions
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
@@ -29,7 +29,7 @@ urlpatterns = [
     path('header', header, name="header"),
     path('footer', footer, name="footer"),
     path('', home_page, name='home'),
-    path('edu', edu_home, name='edu_home'),
+    path('edu', edu, name='edu'),
 
     path('', include('eshop_account.urls')),
     path('', include('eshop_contact.urls')),

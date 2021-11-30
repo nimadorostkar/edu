@@ -78,9 +78,12 @@ def home_page(request):
 
 
 
-def edu_home(request):
-    context = {'a':'a'}
-    return render(request, 'home.html', context)
+
+
+
+def edu(request):
+    context = {}
+    return render(request, 'edu.html', context)
 
 
 
