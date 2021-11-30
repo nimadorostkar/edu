@@ -72,3 +72,22 @@ def home_page(request):
         'all_barand': all_barand,
     }
     return render(request, 'home_page.html', context)
+
+
+
+
+
+
+def edu_home(request):
+    context = {'a':'a'}
+    return render(request, 'home.html', context)
+
+
+
+
+
+
+
+
+
+# End
