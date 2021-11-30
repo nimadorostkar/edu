@@ -1,114 +1,93 @@
 {% load static %}
-
-
-
-
-
-	<!-- Footer ==== -->
-    <footer>
-        <div class="footer-top">
-			<div class="pt-exebar">
-				<div class="container">
-					<div class="d-flex align-items-stretch">
-						<div class="pt-logo mr-auto">
-							<a href="index.html"><img src="assets/images/logo-white.png" alt=""/></a>
-						</div>
-						<div class="pt-social-link">
-							<ul class="list-inline m-a0">
-								<li><a href="#" class="btn-link"><i class="fa fa-facebook"></i></a></li>
-								<li><a href="#" class="btn-link"><i class="fa fa-twitter"></i></a></li>
-								<li><a href="#" class="btn-link"><i class="fa fa-linkedin"></i></a></li>
-								<li><a href="#" class="btn-link"><i class="fa fa-google-plus"></i></a></li>
-							</ul>
-						</div>
-						<div class="pt-btn-join">
-							<a href="#" class="btn ">Join Now</a>
-						</div>
-					</div>
-				</div>
-			</div>
-            <div class="container">
-                <div class="row">
-					<div class="col-lg-4 col-md-12 col-sm-12 footer-col-4">
-                        <div class="widget">
-                            <h5 class="footer-title">Sign Up For A Newsletter</h5>
-							<p class="text-capitalize m-b20">Weekly Breaking news analysis and cutting edge advices on job searching.</p>
-                            <div class="subscribe-form m-b20">
-								<form class="subscription-form" action="http://educhamp.themetrades.com/demo/assets/script/mailchamp.php" method="post">
-									<div class="ajax-message"></div>
-									<div class="input-group">
-										<input name="email" required="required"  class="form-control" placeholder="Your Email Address" type="email">
-										<span class="input-group-btn">
-											<button name="submit" value="Submit" type="submit" class="btn"><i class="fa fa-arrow-right"></i></button>
-										</span>
-									</div>
-								</form>
-							</div>
-                        </div>
-                    </div>
-					<div class="col-12 col-lg-5 col-md-7 col-sm-12">
-						<div class="row">
-							<div class="col-4 col-lg-4 col-md-4 col-sm-4">
-								<div class="widget footer_widget">
-									<h5 class="footer-title">Company</h5>
-									<ul>
-										<li><a href="index.html">Home</a></li>
-										<li><a href="about-1.html">About</a></li>
-										<li><a href="faq-1.html">FAQs</a></li>
-										<li><a href="contact-1.html">Contact</a></li>
-									</ul>
-								</div>
-							</div>
-							<div class="col-4 col-lg-4 col-md-4 col-sm-4">
-								<div class="widget footer_widget">
-									<h5 class="footer-title">Get In Touch</h5>
-									<ul>
-										<li><a href="http://educhamp.themetrades.com/admin/index.html">Dashboard</a></li>
-										<li><a href="blog-classic-grid.html">Blog</a></li>
-										<li><a href="portfolio.html">Portfolio</a></li>
-										<li><a href="event.html">Event</a></li>
-									</ul>
-								</div>
-							</div>
-							<div class="col-4 col-lg-4 col-md-4 col-sm-4">
-								<div class="widget footer_widget">
-									<h5 class="footer-title">Courses</h5>
-									<ul>
-										<li><a href="courses.html">Courses</a></li>
-										<li><a href="courses-details.html">Details</a></li>
-										<li><a href="membership.html">Membership</a></li>
-										<li><a href="profile.html">Profile</a></li>
-									</ul>
-								</div>
-							</div>
-						</div>
-                    </div>
-					<div class="col-12 col-lg-3 col-md-5 col-sm-12 footer-col-4">
-                        <div class="widget widget_gallery gallery-grid-4">
-                            <h5 class="footer-title">Our Gallery</h5>
-                            <ul class="magnific-image">
-								<li><a href="assets/images/gallery/pic1.jpg" class="magnific-anchor"><img src="assets/images/gallery/pic1.jpg" alt=""></a></li>
-								<li><a href="assets/images/gallery/pic2.jpg" class="magnific-anchor"><img src="assets/images/gallery/pic2.jpg" alt=""></a></li>
-								<li><a href="assets/images/gallery/pic3.jpg" class="magnific-anchor"><img src="assets/images/gallery/pic3.jpg" alt=""></a></li>
-								<li><a href="assets/images/gallery/pic4.jpg" class="magnific-anchor"><img src="assets/images/gallery/pic4.jpg" alt=""></a></li>
-								<li><a href="assets/images/gallery/pic5.jpg" class="magnific-anchor"><img src="assets/images/gallery/pic5.jpg" alt=""></a></li>
-								<li><a href="assets/images/gallery/pic6.jpg" class="magnific-anchor"><img src="assets/images/gallery/pic6.jpg" alt=""></a></li>
-								<li><a href="assets/images/gallery/pic7.jpg" class="magnific-anchor"><img src="assets/images/gallery/pic7.jpg" alt=""></a></li>
-								<li><a href="assets/images/gallery/pic8.jpg" class="magnific-anchor"><img src="assets/images/gallery/pic8.jpg" alt=""></a></li>
-							</ul>
-                        </div>
+<!-- Start footer -->
+<footer class="main-footer dt-sl">
+    <div class="back-to-top">
+        <a href="#"><span class="icon"><i class="mdi mdi-chevron-up"></i></span> <span>بازگشت به
+                        بالا</span></a>
+    </div>
+    <div class="container main-container">
+        <div class="footer-services">
+            <div class="row">
+                <div class="service-item col">
+                    <a href="#" target="_blank">
+                        <img src="{% static 'images/svg/delivery.svg' %}">
+                    </a>
+                    <p>تحویل اکسپرس</p>
+                </div>
+                <div class="service-item col">
+                    <a href="#" target="_blank">
+                        <img src="{% static 'images/svg/contact-us.svg' %}">
+                    </a>
+                    <p>پشتیبانی 24 ساعته</p>
+                </div>
+                <div class="service-item col">
+                    <a href="#" target="_blank">
+                        <img src="{% static 'images/svg/payment-terms.svg' %}">
+                    </a>
+                    <p>پرداخت درمحل</p>
+                </div>
+                <div class="service-item col">
+                    <a href="#" target="_blank">
+                        <img src="{% static 'images/svg/return-policy.svg' %}">
+                    </a>
+                    <p>۷ روز ضمانت بازگشت</p>
+                </div>
+                <div class="service-item col">
+                    <a href="#" target="_blank">
+                        <img src="{% static 'images/svg/origin-guarantee.svg' %}">
+                    </a>
+                    <p>ضمانت اصل بودن کالا</p>
+                </div>
+            </div>
+        </div>
+        <div class="footer-widgets">
+            <div class="row">
+                <div class="col-12 col-md-6 col-lg-3">
+                    <div class="widget-menu widget card">
+                        <header class="card-header">
+                            <h3 class="card-title"> Atrotech  </h3>
+                        </header>
+                        <ul class="footer-menu">
+                            <li>
+                                <a href="/contact_us"> تماس با ما  </a>
+                            </li>
+                            <li>
+                                <a href="{% url 'faq_page' %}">پاسخ به پرسش‌های متداول</a>
+                            </li>
+                        </ul>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="footer-bottom">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-12 col-md-12 col-sm-12 text-center"> <a target="_blank" href="https://www.templateshub.net">Templates Hub</a></div>
+
+    </div>
+    <div class="description">
+        <div class="container main-container">
+            <div class="row">
+                <div class="site-description col-12 col-lg-8">
+                    <h1 class="site-title">{{ site_info.title }}</h1>
+                    <p>
+                           با برخوردارى از نيروى انسانى متخصص و پشتوانه علمى و تجربى، با استفاده از آخرين روش هاى فن آورى و مهندسى موفق به ارائه خدمات گسترده و با كيفيت براى مشتريان گرديده .توسعه و بالندگی از طریق بازنگری اهداف، تدوین برنامه‌ها، اولویت‌بندی فعالیت‌ها و بهبود مستمر سرمشق شرکت مهندسى آتروتك بوده و دستیابی به این اهداف، نیازمند ترویج فرهنگ تعالی، حفظ و بهبود ارزش‌ها و اصول اخلاقی شركت و رعایت مسئولیت‌های اجتماعی است.
+                    </p>
                 </div>
+
+                <div class="site-description col-12 col-lg-2">
+                    <img src="{% static 'images/symbol-02.png' %}">
+                </div>
+
+                <div class="site-description col-12 col-lg-2">
+                    <img src="{% static 'images/symbol-01.png' %}">
+                </div>
+
             </div>
         </div>
-    </footer>
-    <!-- Footer END ==== -->
-    <button class="back-to-top fa fa-chevron-up" ></button>
-</div>
+    </div>
+    <div class="copyright">
+        <div class="container main-container">
+            <p class="text-danger">
+               <a class="footer-bottom-text font-second" href="www.atrotech.ir" target="_blank">Atrotech © 2020. All Right Reserved</a>
+            </p>
+        </div>
+    </div>
+</footer>
+<!-- End footer -->
