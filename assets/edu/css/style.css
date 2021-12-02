@@ -1789,14 +1789,15 @@ footer .widget_services ul li:hover {
     position: relative;
 }
 .footer-title:after{
-	width: 50px;
+	width: 60px;
     background: #fff;
     opacity: 0.2;
     height: 1px;
     content: "";
     position: absolute;
     bottom: 0;
-    left: 0;
+    right: 0;
+    align:right;
 }
 .footer_widget ul li a{
 	padding:5px 0;
