@@ -656,6 +656,8 @@
     width: 240px;
     padding: 10px 20px;
 }
+
+
 .menu-links .nav > li.has-mega-menu.demos .mega-menu{
 	left:auto;
 	right:auto;
@@ -2868,6 +2870,22 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#391800', end
 	box-shadow:0 0 15px 0 rgba(0,0,0,0.2);
 	margin:25px auto 15px;
 }
+
+.mentor-nav{
+	width:40px;
+	height:40px;
+	overflow:hidden;
+	border-radius:40px;
+	border: 3px solid #fff;
+	box-shadow:0 0 15px 0 rgba(0,0,0,0.2);
+	margin:15px auto 5px;
+}
+
+.mentor-nav-info p{
+	font-size:8px;
+  color:#717171;
+}
+
 .profile-info{
 	margin-bottom:15px;
 }
