@@ -89,8 +89,13 @@
 					<div class="topbar-right">
 						<ul>
 							<li><a href="javascript:;"><i class="fa fa-phone"></i> 021-66266 </a></li>
-							<li><a href="{% url 'login' %}"> ورود </a></li>
-							<li><a href="{% url 'register' %}"> ثبت نام </a></li>
+							{% if not request.user.is_authenticated %}
+								<li><a href="{% url 'login' %}"> ورود </a></li>
+								<li><a href="{% url 'register' %}"> ثبت نام </a></li>
+							{% else %}
+								<li><a href="/profile"> پروفایل </a></li>
+								<li><a href="{% url 'logout' %}"> خروج </a></li>
+							{% endif %}
 						</ul>
 					</div>
 				</div>

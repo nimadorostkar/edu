@@ -41,11 +41,11 @@ def login_user(request):
 def register(request):
     if request.user.is_authenticated:
         return redirect('/')
-    register_form = RegisterForm(request.POST or None)
-    if register_form.is_valid():
-        username = register_form.cleaned_data.get('username')
-        password = register_form.cleaned_data.get('password')
-        email = register_form.cleaned_data.get('email')
+
+    if request.method=="POST":
+        username = request.POST['user']
+        password = request.POST['pass']
+        email = request.POST['email']
         user = User.objects.create_user(username=username, email=email, password=password)
         login(request, user)
         current_user = request.user
@@ -54,10 +54,8 @@ def register(request):
         data.image = 'users/image/avatar.png'  # به طور پیش‌فرض این عکس رو برای همه میزاره
         data.save()
         return HttpResponseRedirect(request.GET.get('next', reverse('home')))
-    context = {
-        'register_form': register_form
-    }
-    return render(request, 'account/register.html', context)
+
+    return render(request, 'account/register.html', {})
 
 
 

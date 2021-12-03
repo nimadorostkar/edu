@@ -1,155 +1,98 @@
+{% extends 'layouts/login_base.html' %}
 {% load static %}
+{% load humanize %}
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <meta name="theme-color" content="#f7858d">
-    <meta name="msapplication-navbutton-color" content="#f7858d">
-    <meta name="apple-mobile-web-app-status-bar-style" content="#f7858d">
+{% block title %} | ثبت نام {% endblock title %}
 
-    <title>{% block title %}
-        ثبت‌ نام در فروشگاه
-    {% endblock %}
-    </title>
 
-    {% include 'shared/_HeaderReferences.html' %}
+{% block content %}
 
-</head>
-<body>
-<div class="wrapper">
 
-    {% block content %}
 
-        <!-- Start mini-header -->
-        <header class="mini-header pt-4 pb-4">
-            <div class="container">
-                <div class="row">
-                    <div class="col-12 text-center">
-                        <div class="logo-area-mini-header">
-                            <a href="#">
-                                <img src="{% static 'images/logo.png' %}" alt="">
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </header>
-        <!-- End mini-header -->
 
-        <!-- Start main-content -->
-        <main class="main-content dt-sl mt-4 mb-3">
-            <div class="container main-container">
+<div class="page-wraper">
+	<div id="loading-icon-bx"></div>
+	<div class="account-form">
+		<div class="account-head" style="background-image:url({% static 'edu/images/background/bg2.jpg' %});">
+			<a href="index.html"><img src="{% static 'edu/images/logo.png' %}" alt=""></a>
+		</div>
+		<div class="account-form-inner" >
+			<div class="account-container">
+				<div class="heading-bx left" dir="rtl" align="right">
+					<h2 class="title-head"> ثبت نام در آساد </h2>
+					<p> قبلا ثبت نام کرده اید؟ <a href="{% url 'login' %}"> ورود </a></p>
+				</div>
 
-                <div class="row">
-                    <div class="col-xl-4 col-lg-5 col-md-7 col-12 mx-auto">
-                        <div class="form-ui dt-sl dt-sn pt-4">
-                            <div class="section-title title-wide mb-1 no-after-title-wide">
-                                <h2 class="font-weight-bold">ثبت نام در دیدیکالا</h2>
-                            </div>
+				<form action="" method="post" class="contact-bx">
+          {% csrf_token %}
+					<div class="row placeani">
+						<div class="col-lg-12">
+							<div class="form-group">
+								<div class="input-group" dir="rtl" align="right">
+									<label>نام کاربری</label>
+									<input name="user" type="text" required class="form-control">
+								</div>
+							</div>
+						</div>
+            <div class="col-lg-12">
+							<div class="form-group">
+								<div class="input-group" dir="rtl" align="right">
+									<label> ایمیل </label>
+									<input name="email" type="email" required class="form-control">
+								</div>
+							</div>
+						</div>
+						<div class="col-lg-12">
+							<div class="form-group">
+								<div class="input-group" dir="rtl" align="right">
+									<label>رمزعبور</label>
+									<input name="pass" type="password" class="form-control" required>
+								</div>
+							</div>
+						</div>
+						<div class="col-lg-12">
+							<div class="form-group form-forget">
+								<div class="custom-control custom-checkbox">
+									<input type="checkbox" class="custom-control-input" id="customControlAutosizing">
+									<label class="custom-control-label" for="customControlAutosizing"> مرا به خاطر بسپار </label>
+								</div>
+								<a href="forget-password.html" class="ml-auto"> رمز عبور را فراموش کردید؟ </a>
+							</div>
+						</div>
+						<div class="col-lg-12 m-b30" dir="rtl" align="center">
+              <br>
+							<button name="submit" type="submit" value="Submit" class="btn button-md"> ثبت نام در آساد </button>
+						</div>
 
-                            <form action="" method="post">
-                                {% csrf_token %}
-                                <div class="form-row-title">
-                                    <h3>{{ register_form.username.label }}</h3>
-                                </div>
-                                <div class="form-row with-icon" for="{{ register_form.username.id_for_label }}">
-                                    {{ register_form.username }}
-                                    {% for error in register_form.username.errors %}
-                                        <p style="color: red;">{{ error }}</p>
-                                    {% endfor %}
-                                </div>
-                                <div class="form-row-title">
-                                    <h3>{{ register_form.email.label }}</h3>
-                                </div>
-                                <div class="form-row with-icon" for="{{ register_form.email.id_for_label }}">
-                                    {{ register_form.email }}
-                                    {% for error in register_form.email.errors %}
-                                        <p style="color: red;">{{ error }}</p>
-                                    {% endfor %}
-                                </div>
-                                <div class="form-row-title">
-                                    <h3>{{ register_form.password.label }}</h3>
-                                </div>
-                                <div class="form-row with-icon" for="{{ register_form.password.id_for_label }}">
-                                    {{ register_form.password }}
-                                    {% for error in register_form.password.errors %}
-                                        <p style="color: red;">{{ error }}</p>
-                                    {% endfor %}
-                                </div>
-                                <div class="form-row-title">
-                                    <h3>{{ register_form.re_password.label }}</h3>
-                                </div>
-                                <div class="form-row with-icon" for="{{ register_form.re_password.id_for_label }}">
-                                    {{ register_form.re_password }}
-                                    {% for error in register_form.re_password.errors %}
-                                        <p style="color: red;">{{ error }}</p>
-                                    {% endfor %}
-                                </div>
+					</div>
+				</form>
 
-{#                                <div class="form-row with-icon mt-4 " for="{{ form.captcha.id_for_label }}">#}
-{#                                    {{ form.captcha }}#}
-{#                                    {% for error in form.captcha.errors %}#}
-{#                                        <p style="color: red;">{{ error }}</p>#}
-{#                                    {% endfor %}#}
-{#                                </div>#}
-                                <div class="form-row mt-3">
-                                    <button class="btn-primary-cm btn-with-icon mx-auto w-100">
-                                        <i class="mdi mdi-account-circle-outline"></i>
-                                        ثبت نام در دیدیکالا
-                                    </button>
-                                </div>
-                                <div class="form-footer text-right mt-3">
-                                    <span class="d-block font-weight-bold">قبلا ثبت نام کرده اید؟</span>
-                                    <a href="{% url 'login' %}" class="d-inline-block mr-3 mt-2">وارد شوید</a>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </main>
-        <!-- End main-content -->
-
-        <!-- Start mini-footer -->
         <footer class="mini-footer dt-sl">
             <div class="container main-container">
                 <div class="row">
-                    <div class="col-12">
-                        <ul class="mini-footer-menu">
-                            <li><a href="#">درباره دیدیکالا</a></li>
-                            <li><a href="#">فرصت های شغلی</a></li>
-                            <li><a href="#">تماس با ما</a></li>
-                            <li><a href="#">همکاری با سازمان ها</a></li>
-                        </ul>
-                    </div>
-                    <div class="col-12 mt-2 mb-3">
+                    <div class="col-12 mt-2 mb-3" dir="rtl" align="center">
+                      <br><br>
                         <div class="footer-light-text">
-                            استفاده از مطالب فروشگاه اینترنتی دیدیکالا فقط برای مقاصد غیرتجاری و با ذکر منبع بلامانع
-                            است. کلیه حقوق این سایت متعلق به (فروشگاه آنلاین دیدیکالا) می‌باشد.
+                          استفاده از مطالب آساد فقط برای مقاصد غیرتجاری و با ذکر منبع بلامانع است. کلیه حقوق این سایت متعلق به موسسه آساد می‌باشد.
                         </div>
                     </div>
                     <div class="col-12 text-center">
                         <div class="copy-right-mini-footer">
-                            Copyright © 2019 Didikala
+                            Copyright © 2021 Acad-Academy
                         </div>
                     </div>
                 </div>
             </div>
         </footer>
-        <!-- End mini-footer -->
 
-
-    {% endblock %}
-
-    {% include 'shared/_FooterReferences.html' %}
-
-    {% block footer_ref %}
-        <!--if we have another references for any pages we can add here-->
-    {% endblock %}
+			</div>
+		</div>
+	</div>
 </div>
-</body>
-</html>
+
+
+
+
+
+
+{% endblock %}
