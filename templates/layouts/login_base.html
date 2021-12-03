@@ -1,0 +1,83 @@
+{% load static %}
+{% load render_partial %}
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+
+	<!-- META ============================================= -->
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="keywords" content="" />
+	<meta name="author" content="" />
+	<meta name="robots" content="" />
+
+	<!-- DESCRIPTION -->
+	<meta name="description" content="EduChamp : Education HTML Template" />
+
+	<!-- OG -->
+	<meta property="og:title" content="EduChamp : Education HTML Template" />
+	<meta property="og:description" content="EduChamp : Education HTML Template" />
+	<meta property="og:image" content="" />
+	<meta name="format-detection" content="telephone=no">
+
+	<!-- FAVICONS ICON ============================================= -->
+	<link rel="icon" href="{% static 'edu/images/favicon.ico' %}" type="image/x-icon" />
+	<link rel="shortcut icon" type="image/x-icon" href="{% static 'edu/images/favicon.png' %}" />
+
+	<!-- PAGE TITLE HERE ============================================= -->
+	<title> آساد  {% block title %}{% endblock %} </title>
+
+	<!-- MOBILE SPECIFIC ============================================= -->
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<!--[if lt IE 9]>
+	<script src="assets/js/html5shiv.min.js"></script>
+	<script src="assets/js/respond.min.js"></script>
+	<![endif]-->
+
+	<!-- All PLUGINS CSS ============================================= -->
+	<link rel="stylesheet" type="text/css" href="{% static 'edu/css/assets.css' %}">
+
+	<!-- TYPOGRAPHY ============================================= -->
+	<link rel="stylesheet" type="text/css" href="{% static 'edu/css/typography.css' %}">
+
+	<!-- SHORTCODES ============================================= -->
+	<link rel="stylesheet" type="text/css" href="{% static 'edu/css/shortcodes/shortcodes.css' %}">
+
+	<!-- STYLESHEETS ============================================= -->
+	<link rel="stylesheet" type="text/css" href="{% static 'edu/css/style.css' %}">
+	<link class="skin" rel="stylesheet" type="text/css" href="{% static 'edu/css/color/color-1.css' %}">
+
+
+</head>
+<body id="bg">
+
+
+{% block content %}{% endblock %}
+
+
+
+<!-- External JavaScripts -->
+<script src="{% static 'edu/js/jquery.min.js' %}"></script>
+<script src="{% static 'edu/vendors/bootstrap/js/popper.min.js' %}"></script>
+<script src="{% static 'edu/vendors/bootstrap/js/bootstrap.min.js' %}"></script>
+<script src="{% static 'edu/vendors/bootstrap-select/bootstrap-select.min.js' %}"></script>
+<script src="{% static 'edu/vendors/bootstrap-touchspin/jquery.bootstrap-touchspin.js' %}"></script>
+<script src="{% static 'edu/vendors/magnific-popup/magnific-popup.js' %}"></script>
+<script src="{% static 'edu/vendors/counter/waypoints-min.js' %}"></script>
+<script src="{% static 'edu/vendors/counter/counterup.min.js' %}"></script>
+<script src="{% static 'edu/vendors/imagesloaded/imagesloaded.js' %}"></script>
+<script src="{% static 'edu/vendors/masonry/masonry.js' %}"></script>
+<script src="{% static 'edu/vendors/masonry/filter.js' %}"></script>
+<script src="{% static 'edu/vendors/owl-carousel/owl.carousel.js' %}"></script>
+<script src="{% static 'edu/js/functions.js' %}"></script>
+<script src="{% static 'edu/js/contact.js' %}"></script>
+<script src="{% static 'edu/vendors/switcher/switcher.js' %}"></script>
+
+</body>
+
+</html>

@@ -83,7 +83,7 @@ def home_page(request):
 
 def edu(request):
     context = {}
-    return render(request, 'edu.html', context)
+    return render(request, 'index.html', context)
 
 
 

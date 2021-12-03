@@ -21,21 +21,17 @@ from django.views.generic.detail import SingleObjectMixin
 
 def login_user(request):
     url = request.META.get('HTTP_REFERER')  # get last url
-    form = LoginForm(request.POST or None)
-    context = {'form': form}
-
-    if form.is_valid():
-        username = form.cleaned_data.get('username')
-        password = form.cleaned_data.get('password')
+    if request.method=="POST":
+        username = request.POST['user']
+        password = request.POST['pass']
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
             # redirect to next page after login or home page
             request.session['variantid'] = request.POST
-            return HttpResponseRedirect(request.GET.get('next', reverse('home')))
-        else:
-            form.add_error('username', 'نام کاربری یا رمز عبور اشتباه می‌باشد!!')
-    return render(request, 'account/login.html', context)
+        return HttpResponseRedirect(request.GET.get('next', reverse('home')))
+
+    return render(request, 'account/login.html', {})
 
 
 
