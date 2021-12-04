@@ -48,7 +48,7 @@ def register(request):
         current_user = request.user
         data = UserProfile()
         data.user_id = current_user.id
-        data.save()
+        data.save() 
         return HttpResponseRedirect(request.GET.get('next', reverse('home')))
 
     return render(request, 'account/register.html', {})
