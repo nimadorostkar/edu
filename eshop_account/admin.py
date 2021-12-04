@@ -1,7 +1,5 @@
 from django.contrib import admin
-
-# Register your models here.
-from eshop_account.models import UserProfile, UserAddress, History
+from eshop_account.models import UserProfile, UserAddress
 
 
 class UserProfileAdmin(admin.ModelAdmin):
@@ -14,4 +12,3 @@ class UserAddressAdmin(admin.ModelAdmin):
 
 admin.site.register(UserProfile, UserProfileAdmin)
 admin.site.register(UserAddress, UserAddressAdmin)
-admin.site.register(History)

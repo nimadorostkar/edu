@@ -1,24 +1,18 @@
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib import messages
 from django.http import HttpResponseRedirect, request, JsonResponse
 from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.views.generic import ListView, View
-from eshop_comment.models import Comment
-from eshop_order.models import Order, OrderProduct
-from eshop_product.models import Product
-from .forms import LoginForm, RegisterForm, UserAddressForm, UserUpdateForm, ProfileUpdateForm
 from django.contrib.auth import login, authenticate, logout, update_session_auth_hash
 from django.contrib.auth.models import User
-from .models import UserProfile, UserAddress, History
-from django.views.generic.detail import SingleObjectMixin
+from .models import UserProfile, UserAddress
 
 
 
 
 
-
+#------------------------------------------------------------------------------
 def login_user(request):
     url = request.META.get('HTTP_REFERER')  # get last url
     if request.method=="POST":
@@ -38,6 +32,7 @@ def login_user(request):
 
 
 
+#------------------------------------------------------------------------------
 def register(request):
     if request.user.is_authenticated:
         return redirect('/')
@@ -61,8 +56,7 @@ def register(request):
 
 
 
-
-
+#------------------------------------------------------------------------------
 def log_out(request):
     logout(request)
     return redirect('/')
@@ -72,14 +66,6 @@ def log_out(request):
 
 
 
-
-# render partial
-def product_slider(request):
-    product_picked = Product.objects.filter(status=True).order_by('?')[:7]
-    context = {
-        'product_picked': product_picked
-    }
-    return render(request, 'account/_product_slider.html', context)
 
 
 # render partial
@@ -92,19 +78,27 @@ def profile_sidebar(request):
     return render(request, 'account/_profile_sidebar.html', context)
 
 
+
+
+
+
+#------------------------------------------------------------------------------
 @login_required(login_url='/login')
 def profile_page(request):
     current_user = request.user
     profile = UserProfile.objects.filter(user__username=current_user).first()
-    orders = Order.objects.filter(user_id=current_user.id).order_by('-id')[:3]
-    favourites = Product.objects.filter(favourite=request.user, status=True).order_by('-id')[:3]
     context = {
         'current_user': current_user,
-        'profile': profile,
-        'orders': orders,
-        'favourites': favourites
+        'profile': profile
     }
     return render(request, 'account/profile.html', context)
+
+
+
+
+
+
+
 
 
 @login_required(login_url='/login')
