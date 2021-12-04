@@ -2,8 +2,6 @@ asgiref
 captcha
 coreschema
 Django
-django-admin-thumbnail
-django-admin-thumbnails
 django-ckeditor
 django-filter
 django-mptt
@@ -15,4 +13,3 @@ Pillow
 pytz
 requests
 sqlparse
-urllib3v
