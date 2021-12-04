@@ -1,6 +1,6 @@
 from django.urls import path
-from eshop_account import views
-from eshop_account.views import (
+from app_account import views
+from app_account.views import (
     login_user, register, log_out,
     profile_page, profile_addresses,
     add_address, remove_address, edit_address,

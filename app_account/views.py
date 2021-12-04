@@ -76,9 +76,7 @@ def profile_page(request):
     profile = UserProfile.objects.filter(user__username=current_user).first()
     if request.method=="POST":
         current_user.username = request.POST['user']
-        current_user.first_name = request.POS
-
-        T['firstname']
+        current_user.first_name = request.POST['firstname']
         current_user.last_name = request.POST['lastname']
         profile.national_code = request.POST['code']
         profile.phone = request.POST['phone']
@@ -97,6 +95,7 @@ def profile_page(request):
 
 
 
+#------------------------------------------------------------------------------
 @login_required(login_url='/login')
 def password_change(request):
     current_user = request.user
@@ -116,21 +115,6 @@ def password_change(request):
         return render(request, 'account/profile.html', context)
 
 
-
-'''
-#------------------------------------------------------------------------------
-@login_required(login_url='/login')
-def password_change(request):
-    current_user = request.user
-    profile = UserProfile.objects.filter(user__username=current_user).first()
-    if request.method=="POST":
-        if ( current_user.password == request.POST['pass'] and request.POST['newpass1'] == request.POST['newpass2'] ):
-            current_user.password1 = request.POST['newpass1']
-            current_user.password2 = request.POST['newpass2']
-            current_user.save()
-    context = { 'current_user': current_user, 'profile': profile}
-    return render(request, 'account/profile.html', context)
-'''
 
 
 

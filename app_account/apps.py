@@ -2,5 +2,5 @@ from django.apps import AppConfig
 
 
 class EshopAccountConfig(AppConfig):
-    name = 'eshop_account'
+    name = 'app_account'
     verbose_name = 'کاربران'

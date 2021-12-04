@@ -1,5 +1,5 @@
 from django.contrib import admin
-from eshop_account.models import UserProfile, UserAddress
+from app_account.models import UserProfile, UserAddress
 
 
 class UserProfileAdmin(admin.ModelAdmin):

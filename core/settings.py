@@ -33,7 +33,8 @@ INSTALLED_APPS = [
     'captcha',
     'extensions',
     # my app
-    'eshop_account'
+    'app_account',
+    'app_contact'
 ]
 
 
