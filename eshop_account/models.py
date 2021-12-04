@@ -1,8 +1,9 @@
 from django.contrib.auth.models import User
 from django.db import models
 from django.db.models.signals import post_save
-
-
+import os
+import random
+from django.utils.safestring import mark_safe
 
 
 
@@ -27,6 +28,7 @@ class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, verbose_name='نام', related_name='profile')
     phone = models.CharField(blank=True, max_length=20, verbose_name='تلفن')
     national_code = models.CharField(blank=True, max_length=20, verbose_name='کدملی', default='_')
+    bio = models.CharField(blank=True, max_length=60, verbose_name='بیوگرافی')
     image = models.ImageField(blank=True, null=True, upload_to=upload_image_path, verbose_name='تصویر')
 
     class Meta:

@@ -12,6 +12,8 @@ from .models import UserProfile, UserAddress
 
 
 
+
+
 #------------------------------------------------------------------------------
 def login_user(request):
     url = request.META.get('HTTP_REFERER')  # get last url
@@ -26,7 +28,6 @@ def login_user(request):
         return HttpResponseRedirect(request.GET.get('next', reverse('home')))
 
     return render(request, 'account/login.html', {})
-
 
 
 
@@ -68,6 +69,36 @@ def log_out(request):
 
 
 
+#------------------------------------------------------------------------------
+@login_required(login_url='/login')
+def profile_page(request):
+    current_user = request.user
+    profile = UserProfile.objects.filter(user__username=current_user).first()
+    if request.method=="POST":
+        current_user.username = request.POST['user']
+        current_user.first_name = request.POST['firstname']
+        current_user.last_name = request.POST['lastname']
+        profile.national_code = request.POST['code']
+        profile.phone = request.POST['phone']
+        profile.email = request.POST['email']
+        profile.bio = request.POST['bio']
+        profile.image = request.POST['img']
+        current_user.save()
+        profile.save()
+
+    context = { 'current_user': current_user, 'profile': profile}
+    return render(request, 'account/profile.html', context)
+
+
+
+
+
+
+
+
+
+
+
 # render partial
 def profile_sidebar(request):
     current_user = request.user.username
@@ -76,26 +107,6 @@ def profile_sidebar(request):
         'profile': profile,
     }
     return render(request, 'account/_profile_sidebar.html', context)
-
-
-
-
-
-
-#------------------------------------------------------------------------------
-@login_required(login_url='/login')
-def profile_page(request):
-    current_user = request.user
-    profile = UserProfile.objects.filter(user__username=current_user).first()
-    context = {
-        'current_user': current_user,
-        'profile': profile
-    }
-    return render(request, 'account/profile.html', context)
-
-
-
-
 
 
 
@@ -110,6 +121,9 @@ def profile_info(request):
         'profile': profile,
     }
     return render(request, 'account/profile_info.html', context)
+
+
+
 
 
 @login_required(login_url='/login')
