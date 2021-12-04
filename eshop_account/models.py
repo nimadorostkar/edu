@@ -1,23 +1,9 @@
 from django.contrib.auth.models import User
 from django.db import models
 from django.db.models.signals import post_save
-import os
-import random
 from django.utils.safestring import mark_safe
-
-
-
-def get_filename_ext(filepath):
-    base_name = os.path.basename(filepath)
-    name, ext = os.path.splitext(base_name)
-    return name, ext
-
-
-def upload_image_path(instance, filename):
-    new_id = random.randint(1, 999999)
-    name, ext = get_filename_ext(filename)
-    final_name = f"{new_id}-{instance.user}{ext}"
-    return f"users/image/{final_name}"
+from django.dispatch import receiver
+from django.db.models.signals import post_save
 
 
 
@@ -29,7 +15,7 @@ class UserProfile(models.Model):
     phone = models.CharField(blank=True, max_length=20, verbose_name='تلفن')
     national_code = models.CharField(blank=True, max_length=20, verbose_name='کدملی', default='_')
     bio = models.CharField(blank=True, max_length=60, verbose_name='بیوگرافی')
-    image = models.ImageField(blank=True, null=True, upload_to=upload_image_path, verbose_name='تصویر')
+    image = models.ImageField(blank=True, null=True, upload_to='user_uploads/user_photo',default='user_uploads/user_photo/default.png', verbose_name='تصویر')
 
     class Meta:
         verbose_name = 'کاربر'
@@ -48,6 +34,15 @@ class UserProfile(models.Model):
             return mark_safe('<img src="{}" height="50"/>'.format(self.image.url))
 
     image_tag.short_description = 'تصویر'
+
+    @receiver(post_save, sender=User)
+    def create_user_profile(sender, instance, created, **kwargs):
+        if created:
+            Profile.objects.create(user=instance)
+
+    @receiver(post_save, sender=User)
+    def save_user_profile(sender, instance, **kwargs):
+        instance.profile.save()
 
 
 

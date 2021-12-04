@@ -47,7 +47,6 @@ def register(request):
         current_user = request.user
         data = UserProfile()
         data.user_id = current_user.id
-        data.image = 'users/image/avatar.png'  # به طور پیش‌فرض این عکس رو برای همه میزاره
         data.save()
         return HttpResponseRedirect(request.GET.get('next', reverse('home')))
 
@@ -82,7 +81,7 @@ def profile_page(request):
         profile.phone = request.POST['phone']
         profile.email = request.POST['email']
         profile.bio = request.POST['bio']
-        profile.image = request.POST['img']
+        if (request.FILES): profile.image = request.FILES['photo']
         current_user.save()
         profile.save()
 
