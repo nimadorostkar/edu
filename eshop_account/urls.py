@@ -5,7 +5,7 @@ from eshop_account.views import (
     profile_page, profile_addresses,
     add_address, remove_address, edit_address,
     selected_address, OrdersList, order_detail,
-    profile_sidebar, CommentsList, profile_info,
+    CommentsList, profile_info,
     profile_info_edit, password_change, HistoryList,
     history_delete, profile_favourites,
 )
@@ -14,10 +14,9 @@ urlpatterns = [
     path('login', login_user, name='login'),
     path('register', register, name='register'),
     path('logout', log_out, name='logout'),
-    path('profile_page', profile_sidebar, name="profile_sidebar"),
     path('profile', profile_page, name='profile_page'),
-    path('profile/info', profile_info, name='profile_info'),
     path('profile/password', password_change, name='password_change'),
+
     path('profile/info/edit', profile_info_edit, name='profile_info_edit'),
     path('profile/addresses', profile_addresses, name='profile_addresses'),
     path('profile/addresses/add', add_address, name='add_address'),

@@ -7,6 +7,7 @@ from django.views.generic import ListView, View
 from django.contrib.auth import login, authenticate, logout, update_session_auth_hash
 from django.contrib.auth.models import User
 from .models import UserProfile, UserAddress
+from django.contrib.auth.forms import PasswordChangeForm
 
 
 
@@ -75,7 +76,9 @@ def profile_page(request):
     profile = UserProfile.objects.filter(user__username=current_user).first()
     if request.method=="POST":
         current_user.username = request.POST['user']
-        current_user.first_name = request.POST['firstname']
+        current_user.first_name = request.POS
+
+        T['firstname']
         current_user.last_name = request.POST['lastname']
         profile.national_code = request.POST['code']
         profile.phone = request.POST['phone']
@@ -94,18 +97,44 @@ def profile_page(request):
 
 
 
-
-
-
-
-# render partial
-def profile_sidebar(request):
-    current_user = request.user.username
+@login_required(login_url='/login')
+def password_change(request):
+    current_user = request.user
     profile = UserProfile.objects.filter(user__username=current_user).first()
-    context = {
-        'profile': profile,
-    }
-    return render(request, 'account/_profile_sidebar.html', context)
+    if request.method == 'POST':
+        form = PasswordChangeForm(request.user, request.POST)
+        if form.is_valid():
+            user = form.save()
+            update_session_auth_hash(request, user)  # Important!
+            return HttpResponseRedirect('/profile')
+        else:
+            messages.error(request, 'لطفا ایرادات زیر را برطرف کنید.<br>' + str(form.errors))
+            return HttpResponseRedirect('/profile')
+    if request.method == 'GET':
+        form = PasswordChangeForm(request.user)
+        context = { 'form': form, 'current_user': current_user, 'profile': profile }
+        return render(request, 'account/profile.html', context)
+
+
+
+'''
+#------------------------------------------------------------------------------
+@login_required(login_url='/login')
+def password_change(request):
+    current_user = request.user
+    profile = UserProfile.objects.filter(user__username=current_user).first()
+    if request.method=="POST":
+        if ( current_user.password == request.POST['pass'] and request.POST['newpass1'] == request.POST['newpass2'] ):
+            current_user.password1 = request.POST['newpass1']
+            current_user.password2 = request.POST['newpass2']
+            current_user.save()
+    context = { 'current_user': current_user, 'profile': profile}
+    return render(request, 'account/profile.html', context)
+'''
+
+
+
+
 
 
 
@@ -151,24 +180,6 @@ def profile_info_edit(request):
         }
         return render(request, 'account/profile_info_edit.html', context)
 
-
-@login_required(login_url='/login')
-def password_change(request):
-    if request.method == 'POST':
-        form = PasswordChangeForm(request.user, request.POST)
-        if form.is_valid():
-            user = form.save()
-            update_session_auth_hash(request, user)  # Important!
-            return HttpResponseRedirect('/profile')
-        else:
-            messages.error(request, 'لطفا ایرادات زیر را برطرف کنید.<br>' + str(form.errors))
-            return HttpResponseRedirect('/profile/password')
-    if request.method == 'GET':
-        form = PasswordChangeForm(request.user)
-        context = {
-            'form': form,
-        }
-        return render(request, 'account/password_change.html', context)
 
 
 def profile_addresses(request):
