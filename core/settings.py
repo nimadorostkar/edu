@@ -34,7 +34,8 @@ INSTALLED_APPS = [
     'extensions',
     # my app
     'app_account',
-    'app_contact'
+    'app_contact',
+    'app_blog'
 ]
 
 
@@ -65,7 +66,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'django.template.context_processors.request'
+                'django.template.context_processors.request',
+                'app_blog.context_processor.blog_cat'
             ],
         },
     },

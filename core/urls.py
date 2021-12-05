@@ -10,6 +10,7 @@ urlpatterns = [
     path('', home_page, name='home'),
     path('', include('app_account.urls')),
     path('', include('app_contact.urls')),
+    path('blog/', include('app_blog.urls')),
 
 ]
 

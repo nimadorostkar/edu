@@ -55,6 +55,29 @@ def about(request):
 
 
 
+def contact(request):
+    if request.method == "POST":
+        obj = Contact()
+        obj.name = request.POST['name']
+        obj.phone = request.POST['phone']
+        obj.subject = request.POST['subject']
+        obj.body = request.POST['message']
+        obj.save()
+        success = 'پیام ارسال شد'
+        context = {'success':success}
+        return render(request, 'contact/contact.html', context)
+
+    context = {}
+    return render(request, 'contact/contact.html', context)
+
+
+
+
+
+
+
+
+
 
 
 

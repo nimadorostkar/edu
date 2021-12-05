@@ -164,7 +164,7 @@
 										<ul>
 											<li><a href="{% url 'home' %}"> صفحه اصلی </a> </li>
 											<li><a href="{% url 'about' %}"> در مورد ما </a> </li>
-											<li><a href="javascript:;"> تماس با ما </a> </li>
+											<li><a href="{% url 'contact' %}"> تماس با ما </a> </li>
 											<li><a href="javascript:;"> قوانین و مقررات </a> </li>
 										</ul>
 									</li>
@@ -206,7 +206,7 @@
 
 							<li><a href="javascript:;"> وبلاگ <i class="fa fa-chevron-down"></i></a>
 								<ul class="sub-menu">
-									<li><a href="javascript:;"> مشاهده وبلاگ </a></li>
+									<li><a href="{% url 'blog' %}"> مشاهده وبلاگ </a></li>
 									<li><a href="javascript:;"> دسته بندی <i class="fa fa-angle-right"></i></a>
 										<ul class="sub-menu">
 											<li><a href="about-1.html">About 1</a></li>

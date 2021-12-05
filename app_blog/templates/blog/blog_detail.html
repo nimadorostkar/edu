@@ -1,0 +1,138 @@
+{% extends 'layouts/base.html' %}
+
+{% block title %} | {{post.title}}  {% endblock %}
+
+{% block content %}
+
+
+
+
+
+
+
+<!-- page-header -->
+<div class="page-header blog-post-bg full-screen table overlay" dir="rtl">
+    <div class="table-cell">
+        <div class="container">
+            <div class="row font-second">
+
+                <div class="col-sm-12">
+                    <ol class="breadcrumb  text-right">
+                      <li class="init-animation-3 delay0-8s"><a class="animsition-link" href="{% url 'home' %}">آتـــروتـک</a> </li>
+                      <li class="active init-animation-3 delay1-0s"><a class="animsition-link" href="{% url 'blog' %}"> بلاگ </a></li>
+                        <li class="active init-animation-3 delay0-8s"> {{post.title}} </li>
+                    </ol>
+                </div>
+                <!--/ End col -->
+
+                <div class="col-sm-12 page-header-title-center">
+                    <h1 class="hs-text-12 init-animation-4 delay0-4s"> <span> {{post.title}} </span></h1>
+                    <div class="hs-text-6 init-animation-4 delay0-6s">
+                      <p> {{post.body | slice:':280' | safe}}... </p>
+                    </div>
+                </div>
+                <!--/ End col -->
+
+            </div>
+            <!--/ End row -->
+        </div>
+        <!--/ End container -->
+    </div>
+</div>
+<!--/ page-header -->
+
+
+
+
+<!-- section -->
+<div class="section">
+    <div class="container">
+        <!-- Post -->
+        <section class="blog-post">
+            <!-- Post Media -->
+            <div class="blog-page-media">
+                <img class="img-responsive" src="{{post.img.url}}" alt="{{post.title}}">
+            </div>
+            <!-- Post Title -->
+            <h1 class="blog-page-post-title font-second"> <span> {{post.title}} </span> </h1>
+            <!-- Date, Author, Categories, Comments -->
+            <div class="blog-item-detail no-margin-left" align="left" dir="rtl">
+                <a href="#"><i class="fa fa-user"></i>  {{post.author.first_name}} {{post.author.last_name}} </a>
+                <a href="{% url 'category' post.category.slug %}"><i class="fa fa-folder-open"></i> {{post.category}} </a>
+                <a href="#"><i class="fa fa-comment"></i> {{ post.comments.all.count }} </a>
+            </div>
+            <!-- Post body text -->
+            <div class="blog-item-body">
+                <p dir="rtl"> {{post.body|safe}} </p>
+                <blockquote> <footer> <span dir="rtl"> {{post.j_post_date }}  </span> </footer> </blockquote>
+            </div>
+            <!--/ End Post body text -->
+        </section>
+        <!--/ End Post -->
+
+   </div>
+</div>
+
+
+
+
+
+
+
+
+<div class="content-area blog-page padding-top-40" style="background-color: #FCFCFC; padding-bottom: 55px;">
+    <div class="container">
+        <div class="row">
+            <div class="blog-lst col-md-12 pl0">
+
+                {% if not request.user.is_authenticated %}
+                <div class="alert alert-danger">برای اظهار نظر ، ابتدا <a href="/login"> وارد </a>  حساب کاربری خود شوید </div>
+                {% endif %}
+
+                {% if request.user.is_authenticated %}
+                  <div class="card" dir="rtl">
+                    <form action="{% url 'send_comment' post.slug %}" method="POST">
+                      {% csrf_token %}
+                      <input type="hidden" name="post_id" value="{{ post.id }}">
+                      <textarea name="message" cols="130" rows="2"></textarea>
+                      <button type="submit" class="btn btn-lg btn-dark"> افزودن نظر </button>
+                    </form>
+                  </div>
+                {% endif %}
+
+
+                <section class="blog-comment-section" dir="rtl">
+                    <h2 class="blog-page-post-title margin-bottom-60 font-second">{{ post.comments.all.count }} نظر </h2>
+                    <ul class="media-list text comment-list clearlist">
+                      {% for comment in post.comments.all %}
+                       <li class="media comment-item">
+                          <a class="pull-left" href="#"><img src="{{ comment.sender.profile.user_photo.url}}" class="img-circle" style="max-width:80px;"> </a>
+                          <div class="media-body">
+                              <div class="comment-item-data">
+                                  <div class="comment-author"> <a href="#"> {{ comment.sender.first_name}} </a> </div>
+                                  <small class="posted"><i class="fa fa-clock-o"></i> {{ comment.j_create_at }} </small>
+                              </div>
+                              <p> {{ comment.message }} </p>
+                          </div>
+                       </li>
+                       {% empty %}
+                         <div class="alert alert-danger"> هیچ نظری وجود ندارد </div>
+                      {% endfor %}
+                    </ul>
+                </section>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+{% endblock %}
