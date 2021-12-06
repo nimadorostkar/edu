@@ -50,14 +50,13 @@
                       <li><a href="#"><i class="fa fa-calendar"></i> {{post.j_post_date }} </a></li>
                       <li><a href="{% url 'category' post.category.slug %}"><i class="fa fa-folder-open"></i> {{post.category}} </a></li>
   									</ul>
-  									<h2 class="#"><a href="#"> {{post.title}} </a></h2>
+  									<h2 class="#"><a href="{% url 'blog-detail' post.slug %}"> {{post.title}} </a></h2>
   									<p> {{post.body|safe}} </p>
   									<div class="ttr-divider bg-gray"><i class="icon-dot c-square"></i></div>
   										<h6> اشتراک گذاری </h6>
   										<ul class="list-inline contact-social-bx">
-  											<li><a href="#" class="btn outline radius-xl"><i class="fa fa-instagram"></i></a></li>
-  											<li><a href="#" class="btn outline radius-xl"><i class="fa fa-telegram"></i></a></li>
-  											<li><a href="#" class="btn outline radius-xl"><i class="fa fa-whatsapp"></i></a></li>
+  											<li><a href="https://t.me/share/url?url=http://127.0.0.1:8000{% url 'blog-detail' post.slug %}" class="btn outline radius-xl" target="_blank"><i class="fa fa-telegram"></i></a></li>
+  											<li><a href="whatsapp://send?text=http://127.0.0.1:8000{% url 'blog-detail' post.slug %}" class="btn outline radius-xl" data-action="share/whatsapp/share"  target="_blank"><i class="fa fa-whatsapp"></i></a></li>
   										</ul>
   									<div class="ttr-divider bg-gray"><i class="icon-dot c-square"></i></div>
   								</div>
