@@ -14,6 +14,5 @@ from .models import Categories
 
 def blog_cat(request):
     return {
-       'blog_cats': models.Categories.objects.all().order_by('-date_created') ,
-       'blog_cats_counts': models.Categories.objects.all().count()
+       'blog_cats': models.Categories.objects.all()
     }

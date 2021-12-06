@@ -209,8 +209,9 @@
 									<li><a href="{% url 'blog' %}"> مشاهده وبلاگ </a></li>
 									<li><a href="javascript:;"> دسته بندی <i class="fa fa-angle-right"></i></a>
 										<ul class="sub-menu">
-											<li><a href="about-1.html">About 1</a></li>
-											<li><a href="about-2.html">About 2</a></li>
+											{% for Categories in blog_cats %}
+												<li><a href="{% url 'category' Categories.slug %}"> {{ Categories.categoryname }} </a></li>
+											{% endfor %}
 										</ul>
 									</li>
 								</ul>
