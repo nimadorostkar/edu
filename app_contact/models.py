@@ -21,3 +21,20 @@ class Contact(models.Model):
 
     def __str__(self):
         return str(self.name)
+
+
+
+
+
+
+#------------------------------------------------------------------------------
+class Newsletter(models.Model):
+    email = models.EmailField(verbose_name="ایمیل")
+    created_on = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+      verbose_name = "خبرنامه"
+      verbose_name_plural = " خبرنامه  ها"
+
+    def __str__(self):
+        return str(self.email)

@@ -65,17 +65,35 @@
                               {% endfor %}
                             </div>
                             <!-- blog grid END -->
-                            <!-- Pagination -->
-                            <div class="pagination-bx rounded-sm gray clearfix">
+
+
+
+                            <div class="text-center">
                               <ul class="pagination">
-                                <li class="previous"><a href="#"><i class="ti-arrow-left"></i> Prev</a></li>
-                                <li class="active"><a href="#">1</a></li>
-                                <li><a href="#">2</a></li>
-                                <li><a href="#">3</a></li>
-                                <li class="next"><a href="#">Next <i class="ti-arrow-right"></i></a></li>
+                              {% if is_paginated %}
+                                {% if page_obj.has_previous %}
+                                  <li class="page-item"><a class="page-link" style="color:black" href="?page=1"><i class="fa fa-arrow-left" aria-hidden="true"></i></a></li>
+                                  <li class="page-item"><a class="page-link" style="color:black" href="?page={{ page_obj.previous_page_number }}"><i class="fa fa-angle-left" aria-hidden="true"></i></a></li>
+                                {% endif %}
+                                {% for num in page_obj.paginator.page_range %}
+                                  {% if num == page_obj.number %}
+                                    <li class="page-item active"><a class="page-link" style="color:#ffffff; background-color: black; border-color: black;" href="?page={{num}}">{{num}}</a></li>
+                                  {% elif num > page_obj.number|add:'-2' and num < page_obj.number|add:'2' %}
+                                    <li class="page-item"><a class="page-link" style="color:black" href="?page={{num}}">{{num}}</a></li>
+                                  {% endif %}
+                                {% endfor %}
+                                {% if page_obj.has_next %}
+                                  <li class="page-item"><a class="page-link" style="color:black" href="?page={{page_obj.next_page_number}}"><i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+                                  <li class="page-item"><a class="page-link" style="color:black" href="?page={{ page_obj.paginator.num_pages }}"><i class="fa fa-arrow-right" aria-hidden="true"></i></a></li>
+                                {% endif %}
+                              {% endif %}
                               </ul>
-                            </div>
-                            <!-- Pagination END -->
+                             </div>
+
+
+
+
+
                     </div>
                     <!-- left part END -->
                     <!-- Side bar start -->
@@ -99,80 +117,42 @@
                         <div class="widget recent-posts-entry" dir="rtl" align="right">
                           <h6 class="widget-title"> آخرین مطالب </h6>
                           <div class="widget-post-bx">
+                           {% for post in latestpost_list %}
                             <div class="widget-post clearfix">
-                              <div class="ttr-post-media"> <img src="assets/images/blog/recent-blog/pic1.jpg" width="200" height="143" alt=""> </div>
+                              <div class="ttr-post-media"> <img src="{{post.img.url}}" width="200" height="160" alt="{{ post.title }}"> </div>
                               <div class="ttr-post-info">
                                 <div class="ttr-post-header">
-                                  <h6 class="post-title"><a href="blog-details.html">This Story Behind Education Will Haunt You Forever.</a></h6>
+                                  <h6 class="post-title"><a href="{% url 'blog-detail' post.slug %}"> {{ post.title }} </a></h6>
                                 </div>
                                 <ul class="media-post">
-                                  <li><a href="#"><i class="fa fa-calendar"></i>Oct 23 2019</a></li>
-                                  <li><a href="#"><i class="fa fa-comments-o"></i>15 Comment</a></li>
+                                  <li><a href="#"><i class="fa fa-calendar"></i> {{ post.j_post_date }}  </a></li>
+                                  <li><a href="#"><i class="fa fa-comments-o"></i> {{ post.comments.all.count }} </a></li>
                                 </ul>
                               </div>
                             </div>
-                            <div class="widget-post clearfix">
-                              <div class="ttr-post-media"> <img src="assets/images/blog/recent-blog/pic2.jpg" width="200" height="160" alt=""> </div>
-                              <div class="ttr-post-info">
-                                <div class="ttr-post-header">
-                                  <h6 class="post-title"><a href="blog-details.html">What Will Education Be Like In The Next 50 Years?</a></h6>
-                                </div>
-                                <ul class="media-post">
-                                  <li><a href="#"><i class="fa fa-calendar"></i>May 14 2019</a></li>
-                                  <li><a href="#"><i class="fa fa-comments-o"></i>23 Comment</a></li>
-                                </ul>
-                              </div>
-                            </div>
-                            <div class="widget-post clearfix">
-                              <div class="ttr-post-media"> <img src="assets/images/blog/recent-blog/pic3.jpg" width="200" height="160" alt=""> </div>
-                              <div class="ttr-post-info">
-                                <div class="ttr-post-header">
-                                  <h6 class="post-title"><a href="blog-details.html">Eliminate Your Fears And Doubts About Education.</a></h6>
-                                </div>
-                                <ul class="media-post">
-                                  <li><a href="#"><i class="fa fa-calendar"></i>June 12 2019</a></li>
-                                  <li><a href="#"><i class="fa fa-comments-o"></i>27 Comment</a></li>
-                                </ul>
-                              </div>
-                            </div>
+                            {% endfor %}
                           </div>
                         </div>
                         <div class="widget widget-newslatter">
                           <h6 class="widget-title" dir="rtl" align="right"> خبرنامه </h6>
                           <div class="news-box">
                             <p dir="rtl" align="right"> در خبرنامه ما مشترک شوید. </p>
-                            <form class="subscription-form" action="http://educhamp.themetrades.com/demo/assets/script/mailchamp.php" method="post">
-                              <div class="ajax-message"></div>
+                            <p> {{ success }} </p>
+                            <form action="{% url 'newsletter' %}" method="post">
+                              {% csrf_token %}
                               <div class="input-group">
-                                <input name="dzEmail" required="required" type="email" class="form-control" placeholder="Your Email Address"/>
-                                <button name="submit" value="Submit" type="submit" class="btn black radius-no">
-                                  <i class="fa fa-paper-plane-o"></i>
-                                </button>
+                                <input name="email" required="required" type="email" class="form-control" placeholder="ایمیل خود را وارد کنید"/>
+                                <button name="submit" value="Submit" type="submit" class="btn black radius-no"><i class="fa fa-paper-plane-o"></i></button>
                               </div>
                             </form>
                           </div>
                         </div>
                         <div class="widget widget_tag_cloud" dir="rtl" align="right">
-                          <h6 class="widget-title"> برچسب ها </h6>
+                          <h6 class="widget-title"> دسته بندی ها </h6>
                           <div class="tagcloud">
-                            <a href="#">Design</a>
-                            <a href="#">User interface</a>
-                            <a href="#">SEO</a>
-                            <a href="#">WordPress</a>
-                            <a href="#">Development</a>
-                            <a href="#">Joomla</a>
-                            <a href="#">Design</a>
-                            <a href="#">User interface</a>
-                            <a href="#">SEO</a>
-                            <a href="#">WordPress</a>
-                            <a href="#">Development</a>
-                            <a href="#">Joomla</a>
-                            <a href="#">Design</a>
-                            <a href="#">User interface</a>
-                            <a href="#">SEO</a>
-                            <a href="#">WordPress</a>
-                            <a href="#">Development</a>
-                            <a href="#">Joomla</a>
+                            {% for categories in cat_list %}
+                             <a href="{% url 'category' categories.slug %}">{{categories}}</a>
+                            {% endfor %}
                           </div>
                         </div>
                       </aside>
@@ -186,155 +166,6 @@
 <!-- Left & right section END -->
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<br><br><br>><hr>
-
-
-
-
-
-<!-- section -->
-<section class="section">
-    <div class="container">
-
-      <div class="row">
-          <div class="col-sm-9 padding-right-sm-50">
-            {% for post in posts %}
-              <!-- blog-item -->
-              <div class="blog-item">
-                  <!-- Blog-item Header & Media-->
-                  <a class="blog-media animsition-link" href="{% url 'blog-detail' post.slug %}">
-                      <img class="parallax-img img-responsive" src="{{post.img.url}}" alt="{{post.title}}" data-center="transform: translate3d(0px, -50%, 0px)" data-top-bottom="transform: translate3d(0px, -10%, 0px)" data-bottom-top="transform: translate3d(0px, -90%, 0px)">
-                  </a>
-                  <!-- Date, Author, Categories, Comments -->
-                  <div class="blog-item-detail row">
-                      <div class="col-sm-10" align="left" dir="rtl">
-                          <a href="#"><i class="fa fa-user"></i> {{post.author.first_name}} {{post.author.last_name}} </a>
-                          <a href="{% url 'category' post.category.slug %}"><i class="fa fa-folder-open"></i> {{post.category}} </a>
-                          <a href="#"><i class="fa fa-comment"></i>{{ post.comments.all.count }}</a>
-                      </div>
-                      <div class="col-sm-2 text-right  padding-top-xs-15 ">
-                          <a href="{% url 'blog-detail' post.slug %}" class="btn-blog-more animsition-link"><span> ادامه مطلب </span><i class="btn-icon ci-icon-uniE8BE"></i></a>
-                      </div>
-                  </div>
-                  <div class="row blog-item-title-wrapper">
-                      <!-- Text Intro -->
-                      <div class="col-sm-8 blog-item-body" dir="rtl">
-                          <p> {{post.body | slice:':280' | safe}}...  </p>
-                      </div>
-                      <div class="blog-item-title col-sm-4" dir="rtl">
-                          <h1 class=" font-second"><span> {{post.title}} </span></h1>
-                          <span class="post-date"> {{post.j_post_date }} </span>
-                      </div>
-                  </div>
-              </div>
-              <!--/ End blog-item -->
-             {% endfor %}
-           </div>
-             <div class="col-sm-3 sidebar">
-
-                 <div class="widget">
-                     <form action="{% url 'search' %}" method="GET" role="form">
-                         <div class="search-wrap">
-                             <button class="search-button" type="submit" title="Start Search">
-                                 <i class="fa fa-search"></i>
-                             </button>
-                             <input type="search" class="input-field " aria-label="Search" name="q" value="{{request.GET.q}}" placeholder="جستجو...">
-                         </div>
-                     </form>
-                 </div>
-                 <!--/ End widget search -->
-
-                 <div class="widget widget-categories no-margin-bottom" dir="rtl">
-                     <h4 class="widget-title font-second"> دسته بندی ها </h4>
-                     <div class="widget-body">
-                         <ul class="clearlist widget-menu">
-                           {% for categories in cat_list %}
-                             <li> <a href="{% url 'category' categories.slug %}" title="{{categories}}">{{categories}}</a> <span class="badge bg-dark">{{categories.category_set.count}}</span> </li>
-                           {% endfor %}
-                         </ul>
-                     </div>
-                 </div>
-                 <!--/ End widget-categories -->
-
-                 <div class="widget widget-posts-recent" dir="rtl">
-                     <h4 class="widget-title font-second"> آخرین مطالب </h4>
-                     <div class="widget-body">
-                         <ul class="clearlist">
-                            {% for post in latestpost_list %}
-                             <li>
-                                 <h4> <a href="{% url 'blog-detail' post.slug %}"> {{ post.title }} </a> </h4>
-                                 <img style="width:100px; height:80px" src="{{post.img.url}}">
-                                 <span class="post-date"> {{ post.j_post_date }}  </span>
-                                 <hr>
-                             </li>
-                            {% endfor %}
-                         </ul>
-                     </div>
-                 </div>
-                 <!--/ End widget-recent-posts -->
-                 <div class="widget" dir="rtl">
-                     <h4 class="widget-title font-second"> برچسب ها </h4>
-                     <div class="widget-body">
-                         <div class="tags">
-                            {% for categories in cat_list %}
-                             <a href="{% url 'category' categories.slug %}">{{categories}}</a>
-                            {% endfor %}
-                         </div>
-                     </div>
-                 </div>
-                 <!--/ End widget tags -->
-
-           </div>
-       </div>
-
-
-     <div class="text-center">
-       <ul class="pagination">
-       {% if is_paginated %}
-         {% if page_obj.has_previous %}
-           <li class="page-item"><a class="page-link" style="color:black" href="?page=1"><i class="fa fa-arrow-left" aria-hidden="true"></i></a></li>
-           <li class="page-item"><a class="page-link" style="color:black" href="?page={{ page_obj.previous_page_number }}"><i class="fa fa-angle-left" aria-hidden="true"></i></a></li>
-         {% endif %}
-         {% for num in page_obj.paginator.page_range %}
-           {% if num == page_obj.number %}
-             <li class="page-item active"><a class="page-link" style="color:#ffffff; background-color: black; border-color: black;" href="?page={{num}}">{{num}}</a></li>
-           {% elif num > page_obj.number|add:'-2' and num < page_obj.number|add:'2' %}
-             <li class="page-item"><a class="page-link" style="color:black" href="?page={{num}}">{{num}}</a></li>
-           {% endif %}
-         {% endfor %}
-         {% if page_obj.has_next %}
-           <li class="page-item"><a class="page-link" style="color:black" href="?page={{page_obj.next_page_number}}"><i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
-           <li class="page-item"><a class="page-link" style="color:black" href="?page={{ page_obj.paginator.num_pages }}"><i class="fa fa-arrow-right" aria-hidden="true"></i></a></li>
-         {% endif %}
-       {% endif %}
-       </ul>
-      </div>
-
-    </div>
-    <!--/ End container -->
-</section>
-<!--/ End section -->
 
 
 

@@ -5,16 +5,14 @@ from django.contrib import messages
 from django.urls import reverse
 from django.views.generic import ListView, View
 from django.contrib.auth.models import User
-from .models import Contact
+from .models import Contact, Newsletter
 
 
 
 
 
 
-
-
-
+#------------------------------------------------------------------------------
 def support(request):
     if request.method == "POST":
         obj = Contact()
@@ -36,11 +34,7 @@ def support(request):
 
 
 
-
-
-
-
-
+#------------------------------------------------------------------------------
 def about(request):
     context = {}
     return render(request, 'contact/about.html', context)
@@ -51,10 +45,7 @@ def about(request):
 
 
 
-
-
-
-
+#------------------------------------------------------------------------------
 def contact(request):
     if request.method == "POST":
         obj = Contact()
@@ -69,6 +60,25 @@ def contact(request):
 
     context = {}
     return render(request, 'contact/contact.html', context)
+
+
+
+
+
+
+
+
+#------------------------------------------------------------------------------
+def newsletter(request):
+    if request.method == "POST":
+        obj = Newsletter()
+        obj.email = request.POST['email']
+        obj.save()
+    return redirect('blog')
+
+
+
+
 
 
 
