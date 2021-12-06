@@ -1,6 +1,8 @@
 {% extends 'layouts/base.html' %}
+{% load static %}
+{% load humanize %}
 
-{% block title %} | {{cats}} {% endblock %}
+{% block title %} | {{cats}}  {% endblock %}
 
 {% block content %}
 
@@ -10,168 +12,164 @@
 
 
 
-<div id="page-header" class="page-header blog-background full-screen table overlay">
-    <div class="table-cell">
-        <div class="container">
-            <div class="row font-second" dir="rtl">
-
-                <div class="col-sm-12">
-                    <ol class="breadcrumb  text-right">
-                      <li class="init-animation-3 delay0-8s"><a class="animsition-link" href="{% url 'home' %}">آتـــروتـک</a> </li>
-                      <li class="active init-animation-3 delay1-0s"><a class="animsition-link" href="{% url 'blog' %}"> بلاگ </a></li>
-                        <li class="active init-animation-3 delay1-0s">دسته بندی</li>
-                    </ol>
-                </div>
-                <!--/ End col -->
-
-                <div class="col-sm-12 page-header-title-center">
-                    <h1 class="hs-text-12 init-animation-4 delay0-4s"> <span> دسته بندی {{cats}}  </span></h1>
-                </div>
-                <!--/ End col -->
-
-            </div>
-            <!--/ End row -->
-        </div>
-        <!--/ End container -->
-    </div>
-</div>
-<!--/ page-header -->
 
 
 
 
-
-
-
-
-
-<!-- section -->
-<section class="section">
-    <div class="container">
-
-      <div class="row">
-          <div class="col-sm-9 padding-right-sm-50">
-            {% for post in category_posts %}
-              <!-- blog-item -->
-              <div class="blog-item">
-                  <!-- Blog-item Header & Media-->
-                  <a class="blog-media animsition-link" href="{% url 'blog-detail' post.slug %}">
-                      <img class="parallax-img img-responsive" src="{{post.img.url}}" alt="{{post.title}}" data-center="transform: translate3d(0px, -50%, 0px)" data-top-bottom="transform: translate3d(0px, -10%, 0px)" data-bottom-top="transform: translate3d(0px, -90%, 0px)">
-                  </a>
-                  <!-- Date, Author, Categories, Comments -->
-                  <div class="blog-item-detail row">
-                      <div class="col-sm-10" align="left" dir="rtl">
-                          <a href="#"><i class="fa fa-user"></i>  {{post.author.first_name}} {{post.author.last_name}} </a>
-                          <a href="{% url 'category' post.category.slug %}"><i class="fa fa-folder-open"></i> {{post.category}} </a>
-                          <a href="#"><i class="fa fa-comment"></i>{{ post.comments.all.count }}</a>
-                      </div>
-                      <div class="col-sm-2 text-right  padding-top-xs-15 ">
-                          <a href="{% url 'blog-detail' post.slug %}" class="btn-blog-more animsition-link"><span> ادامه مطلب </span><i class="btn-icon ci-icon-uniE8BE"></i></a>
-                      </div>
+<!-- Content -->
+<div class="page-content bg-white">
+              <!-- inner page banner -->
+              <div class="page-banner ovbl-dark" style="background-image:url({% static 'images/banner/banner1.jpg' %});">
+               <div class="container">
+                  <div class="page-banner-entry">
+                    <h1 class="text-white" dir="rtl"> دسته بندی {{cats}} </h1>
                   </div>
-                  <div class="row blog-item-title-wrapper">
-                      <!-- Text Intro -->
-                      <div class="col-sm-8 blog-item-body" dir="rtl">
-                          <p> {{post.body | slice:':280' | safe}}...  </p>
-                      </div>
-                      <div class="blog-item-title col-sm-4" dir="rtl">
-                          <h1 class=" font-second"><span> {{post.title}} </span></h1>
-                          <span class="post-date"> {{post.j_post_date }} </span>
-                      </div>
-                  </div>
+                </div>
               </div>
-              <!--/ End blog-item -->
-             {% endfor %}
-           </div>
-             <div class="col-sm-3 sidebar">
+              <!-- Breadcrumb row -->
+              <div class="breadcrumb-row">
+                <div class="container">
+                  <ul class="list-inline">
+                    <li><a href="#"> آساد </a></li>
+                    <li> بلاگ </li>
+                    <li> {{cats}} </li>
+                  </ul>
+                </div>
+              </div>
+              <!-- Breadcrumb row END -->
+     <div class="content-block">
+        <div class="section-area section-sp1">
+          <div class="container">
+            <div class="row">
+              <!-- left part start -->
+              <div class="col-lg-8 col-xl-8 col-md-7">
+                           <!-- blog grid -->
+                           <div id="masonry" class="ttr-blog-grid-3 row">
+                             {% for post in category_posts %}
+                              <div class="post action-card col-xl-6 col-lg-6 col-md-12 col-xs-12 m-b40">
+                                <div class="recent-news">
+                                  <div class="action-box">
+                                    <img src="{{post.img.url}}" alt="{{post.title}}">
+                                  </div>
+                                  <div class="info-bx">
+                                    <ul class="media-post" dir="rtl">
+                                      <li><a href="#"><i class="fa fa-user"></i> {{post.author.first_name}} {{post.author.last_name}} </a></li>
+                                      <li><a href="#"><i class="fa fa-calendar"></i> {{post.j_post_date }} </a></li>
+                                      <li><a href="{% url 'category' post.category.slug %}"><i class="fa fa-folder-open"></i> {{post.category}} </a></li>
+                                    </ul>
+                                    <div dir="rtl" align="right">
+                                      <h5 class="post-title"><a href="{% url 'blog-detail' post.slug %}"> {{post.title}} </a></h5>
+                                      <p> {{post.body | slice:':220' | safe}}...  </p>
+                                    </div>
+                                    <div class="post-extra">
+                                      <a href="{% url 'blog-detail' post.slug %}" class="btn-link"> مشاهده پست </a>
+                                      <a href="#" class="comments-bx"><i class="fa fa-comments-o"></i> {{ post.comments.all.count }} </a>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              {% endfor %}
+                            </div>
+                            <!-- blog grid END -->
 
-                 <div class="widget">
-                     <form action="{% url 'search' %}" method="GET" role="form">
-                         <div class="search-wrap">
-                             <button class="search-button" type="submit" title="Start Search">
-                                 <i class="fa fa-search"></i>
-                             </button>
-                             <input type="search" class="input-field " aria-label="Search" name="q" value="{{request.GET.q}}" placeholder="جستجو...">
-                         </div>
-                     </form>
-                 </div>
-                 <!--/ End widget search -->
 
-                 <div class="widget widget-categories no-margin-bottom" dir="rtl">
-                     <h4 class="widget-title font-second"> دسته بندی ها </h4>
-                     <div class="widget-body">
-                         <ul class="clearlist widget-menu">
-                           {% for categories in cat_list %}
-                             <li> <a href="{% url 'category' categories.slug %}" title="{{categories}}">{{categories}}</a> <span class="badge bg-dark">{{categories.category_set.count}}</span> </li>
-                           {% endfor %}
-                         </ul>
-                     </div>
-                 </div>
-                 <!--/ End widget-categories -->
 
-                 <div class="widget widget-posts-recent" dir="rtl">
-                     <h4 class="widget-title font-second"> آخرین مطالب </h4>
-                     <div class="widget-body">
-                         <ul class="clearlist">
-                            {% for post in latestpost_list %}
-                             <li>
-                                 <h4> <a href="{% url 'blog-detail' post.slug %}"> {{ post.title }} </a> </h4>
-                                 <img style="width:100px; height:80px" src="{{post.img.url}}">
-                                 <span class="post-date"> {{ post.j_post_date }}  </span>
-                                 <hr>
-                             </li>
+                            <div class="text-center">
+                              <ul class="pagination">
+                              {% if is_paginated %}
+                                {% if page_obj.has_previous %}
+                                  <li class="page-item"><a class="page-link" style="color:black" href="?page=1"><i class="fa fa-arrow-left" aria-hidden="true"></i></a></li>
+                                  <li class="page-item"><a class="page-link" style="color:black" href="?page={{ page_obj.previous_page_number }}"><i class="fa fa-angle-left" aria-hidden="true"></i></a></li>
+                                {% endif %}
+                                {% for num in page_obj.paginator.page_range %}
+                                  {% if num == page_obj.number %}
+                                    <li class="page-item active"><a class="page-link" style="color:#ffffff; background-color: black; border-color: black;" href="?page={{num}}">{{num}}</a></li>
+                                  {% elif num > page_obj.number|add:'-2' and num < page_obj.number|add:'2' %}
+                                    <li class="page-item"><a class="page-link" style="color:black" href="?page={{num}}">{{num}}</a></li>
+                                  {% endif %}
+                                {% endfor %}
+                                {% if page_obj.has_next %}
+                                  <li class="page-item"><a class="page-link" style="color:black" href="?page={{page_obj.next_page_number}}"><i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+                                  <li class="page-item"><a class="page-link" style="color:black" href="?page={{ page_obj.paginator.num_pages }}"><i class="fa fa-arrow-right" aria-hidden="true"></i></a></li>
+                                {% endif %}
+                              {% endif %}
+                              </ul>
+                             </div>
+
+
+
+
+
+                    </div>
+                    <!-- left part END -->
+                    <!-- Side bar start -->
+                    <div class="col-lg-4 col-xl-4 col-md-5 sticky-top">
+                      <aside class="side-bar sticky-top">
+                        <div class="widget" dir="rtl" align="right">
+                          <h6 class="widget-title"> جستجو </h6>
+                          <div class="search-bx style-1">
+                            <form action="{% url 'search' %}" method="GET" role="form">
+                              <div class="input-group">
+                                <input name="q" aria-label="Search" name="q" value="{{request.GET.q}}" class="form-control" placeholder="کلمات کلیدی خود را وارد کنید..." type="search">
+                                <span class="input-group-btn">
+                                  <button type="submit" class="fa fa-search text-primary"></button>
+                                </span>
+                              </div>
+                            </form>
+                          </div>
+                        </div>
+
+
+                        <div class="widget recent-posts-entry" dir="rtl" align="right">
+                          <h6 class="widget-title"> آخرین مطالب </h6>
+                          <div class="widget-post-bx">
+                           {% for post in latestpost_list %}
+                            <div class="widget-post clearfix">
+                              <div class="ttr-post-media"> <img src="{{post.img.url}}" width="200" height="160" alt="{{ post.title }}"> </div>
+                              <div class="ttr-post-info">
+                                <div class="ttr-post-header">
+                                  <h6 class="post-title"><a href="{% url 'blog-detail' post.slug %}"> {{ post.title }} </a></h6>
+                                </div>
+                                <ul class="media-post">
+                                  <li><a href="#"><i class="fa fa-calendar"></i> {{ post.j_post_date }}  </a></li>
+                                  <li><a href="#"><i class="fa fa-comments-o"></i> {{ post.comments.all.count }} </a></li>
+                                </ul>
+                              </div>
+                            </div>
                             {% endfor %}
-                         </ul>
-                     </div>
-                 </div>
-                 <!--/ End widget-recent-posts -->
-                 <div class="widget" dir="rtl">
-                     <h4 class="widget-title font-second"> برچسب ها </h4>
-                     <div class="widget-body">
-                         <div class="tags">
+                          </div>
+                        </div>
+                        <div class="widget widget-newslatter">
+                          <h6 class="widget-title" dir="rtl" align="right"> خبرنامه </h6>
+                          <div class="news-box">
+                            <p dir="rtl" align="right"> در خبرنامه ما مشترک شوید. </p>
+                            <p> {{ success }} </p>
+                            <form action="{% url 'newsletter' %}" method="post">
+                              {% csrf_token %}
+                              <div class="input-group">
+                                <input name="email" required="required" type="email" class="form-control" placeholder="ایمیل خود را وارد کنید"/>
+                                <button name="submit" value="Submit" type="submit" class="btn black radius-no"><i class="fa fa-paper-plane-o"></i></button>
+                              </div>
+                            </form>
+                          </div>
+                        </div>
+                        <div class="widget widget_tag_cloud" dir="rtl" align="right">
+                          <h6 class="widget-title"> دسته بندی ها </h6>
+                          <div class="tagcloud">
                             {% for categories in cat_list %}
                              <a href="{% url 'category' categories.slug %}">{{categories}}</a>
                             {% endfor %}
-                         </div>
-                     </div>
-                 </div>
-                 <!--/ End widget tags -->
-
-           </div>
-       </div>
-
-
-     <div class="text-center">
-       <ul class="pagination">
-          {% if category_posts.has_previous %}
-            <li class="page-item"><a class="page-link" style="color:black" href="?page=1"><i class="fa fa-arrow-left" aria-hidden="true"></i></a></li>
-            <li class="page-item"><a class="page-link" style="color:black" href="?page={{ category_posts.previous_page_number }}"><i class="fa fa-angle-left" aria-hidden="true"></i></a></li>
-          {% endif %}
-          {% for num in category_posts.paginator.page_range %}
-            {% if num == category_posts.number %}
-              <li class="page-item active"><a class="page-link" style="color:#ffffff; background-color: black; border-color: black;" href="?page={{num}}">{{num}}</a></li>
-            {% elif num > category_posts.number|add:'-2' and num < category_posts.number|add:'2' %}
-              <li class="page-item"><a class="page-link" style="color:black" href="?page={{num}}">{{num}}</a></li>
-            {% endif %}
-          {% endfor %}
-          {% if category_posts.has_next %}
-            <li class="page-item"><a class="page-link" style="color:black" href="?page={{category_posts.next_page_number}}"><i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
-            <li class="page-item"><a class="page-link" style="color:black" href="?page={{ category_posts.paginator.num_pages }}"><i class="fa fa-arrow-right" aria-hidden="true"></i></a></li>
-          {% endif %}
-        </ul>
-      </div>
-
-    </div>
-    <!--/ End container -->
-</section>
-<!--/ End section -->
-
-
-
-
-
-
-
+                          </div>
+                        </div>
+                      </aside>
+                    </div>
+                    <!-- Side bar END -->
+                  </div>
+                </div>
+              </div>
+            </div>
+</div>
+<!-- Left & right section END -->
 
 
 
