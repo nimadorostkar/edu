@@ -1,6 +1,8 @@
 {% extends 'layouts/base.html' %}
+{% load static %}
+{% load humanize %}
 
-{% block title %} | {{post.title}}  {% endblock %}
+{% block title %} | {{post.title}} {% endblock %}
 
 {% block content %}
 
@@ -9,123 +11,183 @@
 
 
 
-
-<!-- page-header -->
-<div class="page-header blog-post-bg full-screen table overlay" dir="rtl">
-    <div class="table-cell">
-        <div class="container">
-            <div class="row font-second">
-
-                <div class="col-sm-12">
-                    <ol class="breadcrumb  text-right">
-                      <li class="init-animation-3 delay0-8s"><a class="animsition-link" href="{% url 'home' %}">آتـــروتـک</a> </li>
-                      <li class="active init-animation-3 delay1-0s"><a class="animsition-link" href="{% url 'blog' %}"> بلاگ </a></li>
-                        <li class="active init-animation-3 delay0-8s"> {{post.title}} </li>
-                    </ol>
-                </div>
-                <!--/ End col -->
-
-                <div class="col-sm-12 page-header-title-center">
-                    <h1 class="hs-text-12 init-animation-4 delay0-4s"> <span> {{post.title}} </span></h1>
-                    <div class="hs-text-6 init-animation-4 delay0-6s">
-                      <p> {{post.body | slice:':280' | safe}}... </p>
-                    </div>
-                </div>
-                <!--/ End col -->
-
-            </div>
-            <!--/ End row -->
-        </div>
-        <!--/ End container -->
-    </div>
-</div>
-<!--/ page-header -->
-
-
-
-
-<!-- section -->
-<div class="section">
-    <div class="container">
-        <!-- Post -->
-        <section class="blog-post">
-            <!-- Post Media -->
-            <div class="blog-page-media">
-                <img class="img-responsive" src="{{post.img.url}}" alt="{{post.title}}">
-            </div>
-            <!-- Post Title -->
-            <h1 class="blog-page-post-title font-second"> <span> {{post.title}} </span> </h1>
-            <!-- Date, Author, Categories, Comments -->
-            <div class="blog-item-detail no-margin-left" align="left" dir="rtl">
-                <a href="#"><i class="fa fa-user"></i>  {{post.author.first_name}} {{post.author.last_name}} </a>
-                <a href="{% url 'category' post.category.slug %}"><i class="fa fa-folder-open"></i> {{post.category}} </a>
-                <a href="#"><i class="fa fa-comment"></i> {{ post.comments.all.count }} </a>
-            </div>
-            <!-- Post body text -->
-            <div class="blog-item-body">
-                <p dir="rtl"> {{post.body|safe}} </p>
-                <blockquote> <footer> <span dir="rtl"> {{post.j_post_date }}  </span> </footer> </blockquote>
-            </div>
-            <!--/ End Post body text -->
-        </section>
-        <!--/ End Post -->
-
-   </div>
-</div>
-
-
-
-
-
-
-
-
-<div class="content-area blog-page padding-top-40" style="background-color: #FCFCFC; padding-bottom: 55px;">
-    <div class="container">
-        <div class="row">
-            <div class="blog-lst col-md-12 pl0">
-
-                {% if not request.user.is_authenticated %}
-                <div class="alert alert-danger">برای اظهار نظر ، ابتدا <a href="/login"> وارد </a>  حساب کاربری خود شوید </div>
-                {% endif %}
-
-                {% if request.user.is_authenticated %}
-                  <div class="card" dir="rtl">
-                    <form action="{% url 'send_comment' post.slug %}" method="POST">
-                      {% csrf_token %}
-                      <input type="hidden" name="post_id" value="{{ post.id }}">
-                      <textarea name="message" cols="130" rows="2"></textarea>
-                      <button type="submit" class="btn btn-lg btn-dark"> افزودن نظر </button>
-                    </form>
+<!-- Content -->
+<div class="page-content bg-white">
+              <!-- inner page banner -->
+              <div class="page-banner ovbl-dark" style="background-image:url({% static 'images/banner/banner1.jpg' %});">
+               <div class="container">
+                  <div class="page-banner-entry">
+                    <h1 class="text-white"> {{post.title}} </h1>
                   </div>
-                {% endif %}
+                </div>
+              </div>
+              <!-- Breadcrumb row -->
+              <div class="breadcrumb-row">
+                <div class="container">
+                  <ul class="list-inline">
+                    <li><a href="#"> آساد </a></li>
+                    <li> بلاگ </li>
+                    <li> {{post.title}} </li>
+                  </ul>
+                </div>
+              </div>
+              <!-- Breadcrumb row END -->
+     <div class="content-block">
+        <div class="section-area section-sp1">
+          <div class="container">
+            <div class="row">
+
+              <!-- Left part start -->
+  						<div class="col-lg-8 col-xl-8">
+  							<!-- blog start -->
+  							<div class="recent-news blog-lg">
+  								<div class="action-box blog-lg">
+  									<img src="{{post.img.url}}" alt="{{post.title}}">
+  								</div>
+  								<div class="info-bx" dir="rtl" align="right">
+  									<ul class="media-post">
+                      <li><a href="#"><i class="fa fa-user"></i> {{post.author.first_name}} {{post.author.last_name}} </a></li>
+                      <li><a href="#"><i class="fa fa-calendar"></i> {{post.j_post_date }} </a></li>
+                      <li><a href="{% url 'category' post.category.slug %}"><i class="fa fa-folder-open"></i> {{post.category}} </a></li>
+  									</ul>
+  									<h2 class="#"><a href="#"> {{post.title}} </a></h2>
+  									<p> {{post.body|safe}} </p>
+  									<div class="ttr-divider bg-gray"><i class="icon-dot c-square"></i></div>
+  										<h6> اشتراک گذاری </h6>
+  										<ul class="list-inline contact-social-bx">
+  											<li><a href="#" class="btn outline radius-xl"><i class="fa fa-instagram"></i></a></li>
+  											<li><a href="#" class="btn outline radius-xl"><i class="fa fa-telegram"></i></a></li>
+  											<li><a href="#" class="btn outline radius-xl"><i class="fa fa-whatsapp"></i></a></li>
+  										</ul>
+  									<div class="ttr-divider bg-gray"><i class="icon-dot c-square"></i></div>
+  								</div>
+  							</div>
 
 
-                <section class="blog-comment-section" dir="rtl">
-                    <h2 class="blog-page-post-title margin-bottom-60 font-second">{{ post.comments.all.count }} نظر </h2>
-                    <ul class="media-list text comment-list clearlist">
-                      {% for comment in post.comments.all %}
-                       <li class="media comment-item">
-                          <a class="pull-left" href="#"><img src="{{ comment.sender.profile.user_photo.url}}" class="img-circle" style="max-width:80px;"> </a>
-                          <div class="media-body">
-                              <div class="comment-item-data">
-                                  <div class="comment-author"> <a href="#"> {{ comment.sender.first_name}} </a> </div>
-                                  <small class="posted"><i class="fa fa-clock-o"></i> {{ comment.j_create_at }} </small>
+  							<div class="clear" id="comment-list" dir="rtl" align="right">
+  								<div class="comments-area" id="comments">
+  									<h2 class="comments-title">{{post.comments.all.count}}  نظر </h2>
+  									<div class="clearfix m-b20">
+  										<!-- comment list END -->
+  										<ol class="comment-list">
+                        {% for comment in post.comments.all %}
+  											<li class="comment">
+  												<div class="comment-body">
+  													<div class="comment-author vcard"> <img  class="avatar photo" src="{{ comment.sender.profile.image.url}}" alt="">
+                            <cite class="fn"> {{ comment.sender.first_name}} </cite> <span class="says">says:</span> </div>
+  													<div class="comment-meta"> <a href="#"> {{ comment.j_create_at }} </a> </div>
+  													<p> {{ comment.message }} </p>
+  												</div>
+  											</li>
+                        {% empty %}
+                          <div class="alert alert-danger"> هیچ نظری وجود ندارد </div>
+                        {% endfor %}
+  										</ol>
+
+  										<!-- comment list END -->
+  										<!-- Form -->
+  										<div class="comment-respond" id="respond">
+
+                        {% if not request.user.is_authenticated %}
+                          <div class="alert alert-danger">برای اظهار نظر ، ابتدا <a href="/login"> وارد </a>  حساب کاربری خود شوید </div>
+                        {% endif %}
+
+                        {% if request.user.is_authenticated %}
+                          <h4 class="comment-reply-title" id="reply-title"> نظر بدهید  </h4>
+                           <form class="comment-form" id="commentform" method="post" action="{% url 'send_comment' post.slug %}">
+                             {% csrf_token %}
+                             <p class="comment-form-comment">
+                               <label for="comment">نظر</label>
+                               <input type="hidden" name="post_id" value="{{ post.id }}">
+                               <textarea rows="4" name="message" placeholder="نظر" id="comment"></textarea>
+                             </p>
+                             <p class="form-submit">
+                               <input type="submit" value="ارسال نظر" class="submit" id="submit" name="submit">
+                             </p>
+                           </form>
+                        {% endif %}
+
+  										</div>
+  										<!-- Form -->
+  									</div>
+  								</div>
+  							</div>
+  							<!-- blog END -->
+  						</div>
+  						<!-- Left part END -->
+
+                    <!-- Side bar start -->
+                    <div class="col-lg-4 col-xl-4 col-md-5 sticky-top">
+                      <aside class="side-bar sticky-top">
+                        <div class="widget" dir="rtl" align="right">
+                          <h6 class="widget-title"> جستجو </h6>
+                          <div class="search-bx style-1">
+                            <form action="{% url 'search' %}" method="GET" role="form">
+                              <div class="input-group">
+                                <input name="q" aria-label="Search" name="q" value="{{request.GET.q}}" class="form-control" placeholder="کلمات کلیدی خود را وارد کنید..." type="search">
+                                <span class="input-group-btn">
+                                  <button type="submit" class="fa fa-search text-primary"></button>
+                                </span>
                               </div>
-                              <p> {{ comment.message }} </p>
+                            </form>
                           </div>
-                       </li>
-                       {% empty %}
-                         <div class="alert alert-danger"> هیچ نظری وجود ندارد </div>
-                      {% endfor %}
-                    </ul>
-                </section>
+                        </div>
 
 
+                        <div class="widget recent-posts-entry" dir="rtl" align="right">
+                          <h6 class="widget-title"> آخرین مطالب </h6>
+                          <div class="widget-post-bx">
+                           {% for post in latestpost_list %}
+                            <div class="widget-post clearfix">
+                              <div class="ttr-post-media"> <img src="{{post.img.url}}" width="200" height="160" alt="{{ post.title }}"> </div>
+                              <div class="ttr-post-info">
+                                <div class="ttr-post-header">
+                                  <h6 class="post-title"><a href="{% url 'blog-detail' post.slug %}"> {{ post.title }} </a></h6>
+                                </div>
+                                <ul class="media-post">
+                                  <li><a href="#"><i class="fa fa-calendar"></i> {{ post.j_post_date }}  </a></li>
+                                  <li><a href="#"><i class="fa fa-comments-o"></i> {{ post.comments.all.count }} </a></li>
+                                </ul>
+                              </div>
+                            </div>
+                            {% endfor %}
+                          </div>
+                        </div>
+                        <div class="widget widget-newslatter">
+                          <h6 class="widget-title" dir="rtl" align="right"> خبرنامه </h6>
+                          <div class="news-box">
+                            <p dir="rtl" align="right"> در خبرنامه ما مشترک شوید. </p>
+                            <p> {{ success }} </p>
+                            <form action="{% url 'newsletter' %}" method="post">
+                              {% csrf_token %}
+                              <div class="input-group">
+                                <input name="email" required="required" type="email" class="form-control" placeholder="ایمیل خود را وارد کنید"/>
+                                <button name="submit" value="Submit" type="submit" class="btn black radius-no"><i class="fa fa-paper-plane-o"></i></button>
+                              </div>
+                            </form>
+                          </div>
+                        </div>
+                        <div class="widget widget_tag_cloud" dir="rtl" align="right">
+                          <h6 class="widget-title"> دسته بندی ها </h6>
+                          <div class="tagcloud">
+                            {% for categories in cat_list %}
+                             <a href="{% url 'category' categories.slug %}">{{categories}}</a>
+                            {% endfor %}
+                          </div>
+                        </div>
+                      </aside>
+                    </div>
+                    <!-- Side bar END -->
+                  </div>
+                </div>
+              </div>
             </div>
-        </div>
-    </div>
 </div>
+<!-- Left & right section END -->
+
+
+
+
 
 
 
